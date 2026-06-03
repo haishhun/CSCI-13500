@@ -1,0 +1,55 @@
+# Intro to C++ — Student Introduction Survey
+
+*Welcome! Please take a few minutes to fill this out. Your responses help your instructor get to know you and tailor the course to your needs.*
+
+---
+
+## Section 1: About You
+
+1. What is your full name: Dzmitry Haishun
+2. What is your major/Minor (or intended major): Computer Science/Math
+3. Favorite snack: Banana chips
+4. Hobby/Favorite Pass time: Video games like Dota2
+
+---
+
+## Section 2: Programming Experience
+
+5. Have you written code before in any language: Yes
+6. If yes, which languages have you used? *(e.g., Python, Java, Scratch, etc.)*: Python and Ruby
+7. How would you describe your overall programming experience so far?:
+   - [ ] No experience at all
+   - [ ] A little (one course or self-taught basics)
+   - [ ] Some (a few projects or courses)
+   - [✅] Quite a bit (multiple languages or projects)
+8. Have you written any C++ code before: Only in CSCI-12700
+9. Are you retaking this course or is this your first time: First time
+10. Do you enjoy coding? Do you enjoy CS so far? Why or why not: I've been coding since 2022, so I enjoy it. CS is pretty good so far.
+
+---
+
+## Section 3: Comfort with CS Concepts
+
+Rate your comfort level with each of the following *(1 = Never heard of it, 5 = Very comfortable)*:
+
+| Variables & data types: 5
+| Loops (for, while): 5
+| Conditionals (if/else): 5
+| Functions / methods: 5
+| Arrays / lists: 5
+| Memory & pointers: 3
+| Object-oriented programming: 4
+
+---
+
+## Section 4: Goals & Expectations
+
+10. What do you hope to get out of this course: I'd like to learn more C++ basics. I also think learning things that help with job preparation would be great.
+11. Is there anything specific about C++ or programming you're excited to learn: I'm interested in seeing how C++ is different from Python and learning more about how it works.
+12. What are you most nervous or uncertain about going into this course: Nothing specific right now. Since most of my experience is with Python, I know there will be some new concepts to learn, but I'm looking forward to it.
+13. How do you prefer to learn when something is difficult? *(e.g., watching videos, reading, asking questions, working with others, etc.)*: I usually try different ways, mostly using AI, researching online or when the problem is really bad I ask people for an advice (either friends or discord).
+14. Is there anything else you'd like your instructor to know about you:
+   My main programming language is Python, and I have about two years of backend development experience, mostly working with FastAPI. (actually closer to 3 years)
+---
+
+*Thank you for filling this out! I look forward to getting to know you.*
