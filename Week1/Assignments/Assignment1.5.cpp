@@ -14,7 +14,7 @@ int main()
         std::cin >> first_number;
         if (std::cin.fail())
         {
-            std::cout << "Invalid input! Please enter a number.\n";
+            std::cout << "Error: Invalid data. Please enter a number.\n";
             std::cin.clear();
             std::cin.ignore(10000, '\n');
             continue;
@@ -23,7 +23,7 @@ int main()
         std::cin >> second_number;
         if (std::cin.fail())
         {
-            std::cout << "Invalid input! Please enter a number.\n";
+            std::cout << "Error: Invalid data. Please enter a number.\n";
             std::cin.clear();
             std::cin.ignore(10000, '\n');
             continue;
