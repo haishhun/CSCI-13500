@@ -67,7 +67,7 @@ I chose a switch statement instead of if-else because it is easier to extend the
 
 ## Functions
 
-No separate function were used in the program.
+No separate functions were used in the program.
 
 ## Sample Input/Output
 
@@ -143,13 +143,13 @@ Expected Result: Error: Cannot divide by zero.
 
 Input: abc 
 
-Expected Result: Invalid input! Please enter a number.
+Expected Result: Error: Invalid data. Please enter a number.
 
 ### Test Case 11
 
 Input: 10, abc 
 
-Expected Result: Invalid input! Please enter a number.
+Expected Result: Error: Invalid data. Please enter a number.
 
 ### Test Case 12
 
