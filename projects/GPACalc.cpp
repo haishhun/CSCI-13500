@@ -109,7 +109,7 @@ int main()
         total_classes++;
 
         // Ask the user if he wants to enter another grade.
-        std::cout << "Enter Y to add another grade. Any other key to exit.";
+        std::cout << "Enter Y to add another grade. Any other key to exit.\n";
         std::cin >> continue_option;
         std::cin.ignore(10000, '\n'); // Handling inputs like "y3A+" etc.
 
