@@ -34,7 +34,7 @@ int main()
 
             if (!(std::cin >> rounds) || rounds <= 0)
             {
-                std::cout << "Error: Invalid input.\n";
+                std::cout << "Error: Invalid amount of rounds. Please enter again.\n";
                 std::cin.clear();
                 std::cin.ignore(10000, '\n');
             }
