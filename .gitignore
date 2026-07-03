@@ -1,0 +1,13 @@
+# Build output
+*.o
+*.out
+*.exe
+a.out
+
+# Editor/IDE
+.vscode/
+.vs/
+*.swp
+
+# macOS
+.DS_Store
