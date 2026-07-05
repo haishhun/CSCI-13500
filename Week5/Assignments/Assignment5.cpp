@@ -2,51 +2,51 @@
 #include <random>
 #include <string>
 
-void PrintWelcomeMessage();
 /*This function prints the welcome message for the game.*/
+void PrintWelcomeMessage();
 
-int GetRounds();
 /*This function prompts the user to enter the number of rounds they want to play
  * and returns the value.*/
+int GetRounds();
 
-std::string GetPlayerMove();
 /*This function prompts the user to enter their move and returns the value.*/
+std::string GetPlayerMove();
 
-std::string GetBotMove();
 /*This function generates the bot's move and returns the value.*/
+std::string GetBotMove();
 
-void PrintRoundScore(int player_score, int bot_score);
 /*This function prints the score for a single round.
 @player_score: The player's score.
 @bot_score: The bot's score.
 */
+void PrintRoundScore(int player_score, int bot_score);
 
-bool DetermineRoundWinner(const std::string& player_move,
-                          const std::string& bot_move, int& player_score,
-                          int& bot_score);
 /*This function determines the winner of a round and updates the scores.
 @player_move: The player's move.
 @bot_move: The bot's move.
 @player_score: The player's score.
 @bot_score: The bot's score.
 */
+bool DetermineRoundWinner(const std::string& player_move,
+                          const std::string& bot_move, int& player_score,
+                          int& bot_score);
 
-void PrintFinalScore(int player_score, int bot_score);
 /*This function prints the final score of the game.
 @player_score: The player's score.
 @bot_score: The bot's score.
 */
+void PrintFinalScore(int player_score, int bot_score);
 
-bool AskPlayAgain();
 /*This function asks the user if they want to play again and returns a boolean
  * value.*/
+bool AskPlayAgain();
 
-void PlayGame(int rounds, int& player_score, int& bot_score);
 /*This function plays the game for the specified number of rounds.
 @rounds: The number of rounds to play.
 @player_score: The player's score.
 @bot_score: The bot's score.
 */
+void PlayGame(int rounds, int& player_score, int& bot_score);
 
 int main() {
   PrintWelcomeMessage();
