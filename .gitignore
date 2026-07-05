@@ -1,13 +1,10 @@
-# Build output
-*.o
-*.out
-*.exe
-a.out
-
-# Editor/IDE
-.vscode/
-.vs/
-*.swp
-
-# macOS
-.DS_Store
+# Ignore all files that do not have an extension
+*
+# Do not ignore directories
+!*/
+# Explicitly whitelist your source files so Git tracks them
+!*.c
+!*.cpp
+!*.h
+!Makefile
+!*.md
