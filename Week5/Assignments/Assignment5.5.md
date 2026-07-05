@@ -54,7 +54,23 @@ In main(): 10
 3. Where does the variable `number` exist?
 * Only in `addFive` and gets removed after the function.
 4. Draw the call stack while `addFive()` is executing.
-* ### TODO
+```
+    Top of Stack
+┌─────────────────┐
+│  addFive()      │
+├─────────────────┤
+│ number = 10     |
+| number = 15     │
+└─────────────────┘
+│
+│
+┌─────────────────┐
+│   main()        │
+├─────────────────┤
+│ value = 10      │
+└─────────────────┘
+Bottom of Stack
+```
 5. What happens to `number` after the function returns?
 * Getting removed from memory.
 ---
@@ -99,7 +115,26 @@ Inside investigate(): 15 5
 4. What would happen if the function attempted to modify `clue`?
 * We will get an error because `clue` is a const (immutable.)
 5. Draw the call stack while `investigate()` is executing.
-* ### TODO
+```
+    Top of Stack
+┌─────────────────┐
+│ investigate()   │
+├─────────────────┤
+│ suspect = 10    │
+│ clue = 5        │
+│ suspect = 15    │
+└─────────────────┘
+│
+│
+┌─────────────────┐
+│   main()        │
+├─────────────────┤
+│ score = 10      │
+│ bonus = 5       |
+| score = 15      │
+└─────────────────┘
+Bottom of Stack
+```
 
 ---
 
@@ -141,7 +176,24 @@ int main()
 5. What would happen if the function was called as `investigate(nullptr);`?
 * Then it won't pass a check if (evidence != nullptr) and the function won't do anything. So the output would be 7.
 6. Draw the call stack while `investigate()` is executing.
-* ### TODO
+```
+    Top of Stack
+┌─────────────────────────┐
+│ investigate()           │
+├─────────────────────────┤
+│ evidence = ptr (&clue)  │
+│*evidedence = 14         │
+└─────────────────────────┘
+│
+│
+┌─────────────────┐
+│   main()        │
+├─────────────────┤
+│ clue = 7        |
+| clue = 14       │
+└─────────────────┘
+Bottom of Stack
+```
 
 ---
 
@@ -188,7 +240,38 @@ int main()
 1. Predict the output of the program.
 *29
 2. Draw the call stack after each function call.
-* ### TODO
+    1.After `mysteryA(value)`
+    ```
+        Top of Stack
+    ┌─────────────────┐
+    │   main()        │
+    ├─────────────────┤
+    │ value = 15      │
+    └─────────────────┘
+    Bottom of Stack
+    ```
+
+    2.After `mysteryB(value)`
+    ```
+        Top of Stack
+    ┌─────────────────┐
+    │   main()        │
+    ├─────────────────┤
+    │ value = 30      │
+    └─────────────────┘
+    Bottom of Stack
+    ```
+
+    3.After `mysteryC(&value)`
+    ```
+        Top of Stack
+    ┌─────────────────┐
+    │   main()        │
+    ├─────────────────┤
+    │  value = 29     │
+    └─────────────────┘
+    Bottom of Stack
+    ```
 3. Which function uses:
    - Pass by Copy?
         * mysteryA
@@ -218,4 +301,4 @@ Answer the following questions in complete sentences.
 4. What role does the `const` keyword play when working with references and pointers?
 * Makes the value unmodifiable in the function when we pass by reference or pointer.
 5. How does understanding the call stack help explain why variables change—or do not change—during function calls?
-* ### TODO
+* It helps to understand the order of functions called and that `main` stops until the function executes.
