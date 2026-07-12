@@ -39,7 +39,7 @@ Each `.cpp`file compiles into its own object file, and they get linked together.
 ```
 g++ -std=c++17 -Wall -c Dice.cpp -o Dice.o
 g++ -std=c++17 -Wall -c Snake.cpp -o Snake.o
-g++ -std=c++17 -Wall -c main.cpp -o main.o
-g++ Dice.o Snake.o main.o -o game
+g++ -std=c++17 -Wall -c game.cpp -o game.o
+g++ Dice.o Snake.o game.o -o game
 ```
 
