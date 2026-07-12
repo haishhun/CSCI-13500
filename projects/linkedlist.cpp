@@ -1,97 +1,91 @@
+#include "linkedlist.hpp"
+
 #include <iostream>
 #include <stdexcept>
-
-struct Node {
-  int value;
-  Node* next;
-
-  Node(int passed_value) : value(passed_value), next(nullptr) {};
-};
-
-class LinkedList {
- public:
-  LinkedList() : size_(0), head_(nullptr) {}
-  ~LinkedList();
-
-  void InsertNode(const int value);
-  void InsertNodeFront(const int value);
-  bool Contains(const int value) const;
-  bool Remove(const int position);
-  void PrintValues() const;
-  void PrintAddresses() const;
-  int GetValueAtPosition(const int position) const;
-  LinkedList* ReverseList();
-  void InsertNodeAt(const int value, const int position);
-  int GetSize() const;
-  LinkedList* MergeIntertwine(const LinkedList& second_list) const;
-
- private:
-  int size_;
-  Node* head_;
-};
 
 // @param: Takes in a const int parameter representing the value to insert.
 // @return: Returns nothing.
 void LinkedList::InsertNode(const int value) {
-  // Insert the provided value as a new node at the end of the list.
-  // Ensure that the list's tracking variables are updated accordingly.
+  // Create a Node object new_node.
   Node* new_node = new Node(value);
 
+  // If head is empty then new node becomes head.
   if (head_ == nullptr) {
     head_ = new_node;
   } else {
+    // Declare a pointer current pointing to head_.
     Node* current = head_;
+
+    // Loop through the list.
     while (current->next != nullptr) {
       current = current->next;
     }
+
+    // Insert node at the end.
     current->next = new_node;
   }
 
+  // Increment size_ by 1 when node is added.
   size_++;
 }
 
 // @param: Takes in a const int parameter representing the value to insert.
 // @return: Returns nothing.
 void LinkedList::InsertNodeFront(const int value) {
-  // Insert the provided value as a new node at the beginning of the list.
-  // Ensure that the list's tracking variables are updated accordingly.
+  // Create a Node object new_node.
   Node* new_node = new Node(value);
+
+  // Move new node's pointer to a previous head
   new_node->next = head_;
+
+  // Make a new node - head_.
   head_ = new_node;
 
+  // Increment size_ by 1 when node is added.
   size_++;
 }
 
 // @param: Takes in a const int target value.
 // @return: Returns true if the value is found, false otherwise.
 bool LinkedList::Contains(const int value) const {
-  // Return true if the target value exists within any node in the list.
-  // Otherwise, return false.
+  // Declare a pointer current pointing to head_.
   Node* current = head_;
+
+  // Loop through the list to check if value exists in the list already.
   while (current) {
-    if (current->value == value) return true;
+    if (current->value == value) {
+      return true;
+    }
     current = current->next;
   }
+
+  // Return false if the value was not found.
   return false;
 }
 
 // @param: Takes in a const int representing the 1-based position to remove.
 // @return: Returns true if successfully removed, false otherwis
 bool LinkedList::Remove(const int position) {
-  // Validate the position. If valid, remove the node at that 1-based
-  // position, carefully bypassing it in the chain. Prevent memory leaks by
-  // freeing the removed node, update the list's size, and return true.
+  // Declare a pointer node_to_remove pointing to nullptr.
   Node* node_to_remove = nullptr;
 
+  // Validate position is not out of range.
   if (position > size_ || position < 1) {
-    std::cout << ("Error: Node with this position does not exist") << std::endl;
+    std::cout << "Error: Node with this position does not exist" << std::endl;
     return false;
   }
+
+  // if position is 1 then it is head_
   if (position == 1) {
     node_to_remove = head_;
     head_ = node_to_remove->next;
   } else {
+    // Declare a pointer previous pointing to head_.
     Node* previous = head_;
+
+    // Loop through the list to find target node at the position.
+    // position -2 because we need to save previous node and use the pointer to
+    // point on the next after the target node.
     for (int i = 0; i < position - 2; i++) {
       previous = previous->next;
     }
@@ -99,27 +93,39 @@ bool LinkedList::Remove(const int position) {
     previous->next = node_to_remove->next;
   }
 
+  // Deleting node.
   delete node_to_remove;
+
+  // Decrement size_ when node is deleted.
   size_--;
+
+  // Return true in the end.
   return true;
 }
 
 void LinkedList::PrintValues() const {
-  // Print all values sequentially, separated by " -> ",
-  // and terminate the output with "nullptr" and a newline.
+  // Declare a pointer current pointing to head_.
   Node* current = head_;
+
+  // Loop through the list with printing each value of nodes separated by "->".
   while (current) {
     std::cout << current->value << " -> ";
     current = current->next;
   }
+
+  // Terminate the output with "nullptr" and a newline.
   std::cout << "nullptr" << std::endl;
 }
 
 void LinkedList::PrintAddresses() const {
-  // Print the 1-based position, a space, and the node's memory address
-  // for every node in the list.
+  // Declare a pointer current pointing to head_.
   Node* current = head_;
+
+  // Declare variable position.
   int position = 1;
+
+  // Loop through the list with printing each address of nodes in a format
+  // "position address".
   while (current) {
     std::cout << position << " " << current << std::endl;
     position++;
@@ -131,44 +137,55 @@ void LinkedList::PrintAddresses() const {
 // @return: Returns the integer value at that position.
 // @throws: std::out_of_range if the position is < 1 or > size_.
 int LinkedList::GetValueAtPosition(const int position) const {
-  // Validate the position, throwing an exception if it is out of bounds.
-  // Otherwise, navigate to the correct node and return its value.
+  // Declare a pointer current pointing to head_.
   Node* current = head_;
+
+  // Validate the position and throw out_of_range if the position is < 1 or >
+  // size_.
   if (position > size_ || position < 1) {
     throw std::out_of_range("Error: Node with this position does not exist");
   }
 
+  // Loop through the list to find a target node.
   for (int i = 0; i < position - 1; i++) {
     current = current->next;
   }
+
+  // Return its value.
   return current->value;
 }
 
 // @return: Returns a pointer to a new LinkedList containing the reversed
 // nodes.
 LinkedList* LinkedList::ReverseList() {
-  // Reverse the nodes of the current list.
-  // Allocate a new LinkedList dynamically, give it ownership of the
-  // reversed nodes, and reset the current (original) list to an empty
-  // state. Return the pointer to the newly created list.
+  // Create a LinkedList object reverse_list.
   LinkedList* reverse_list = new LinkedList();
 
+  // Declare pointers current, previous and next pointing to head_, nullptr and
+  // nullptr.
   Node* current = head_;
   Node* previous = nullptr;
   Node* next = nullptr;
 
+  // Loop through the list with reassigning nodes.
   while (current) {
     next = current->next;
     current->next = previous;
     previous = current;
     current = next;
   }
+
+  // Make the last node - head_.
   reverse_list->head_ = previous;
+
+  // Keep the size as an original one.
   reverse_list->size_ = size_;
 
+  // Prevent dangling pointer head_ and make size_ = 0.
   head_ = nullptr;
   size_ = 0;
 
+  // Return result list.
   return reverse_list;
 }
 
@@ -176,49 +193,63 @@ LinkedList* LinkedList::ReverseList() {
 // @return: Returns nothing.
 // @throws: std::out_of_range if the position is invalid.
 void LinkedList::InsertNodeAt(const int value, const int position) {
-  // Check if the position is valid (allowing insertions at the very end).
-  // If invalid, throw std::out_of_range.
-  // Otherwise, insert the new node at the correct spot and update list
-  // properties.
+  // Validate the position and throw out_of_range if the position is < 1 or >
+  // size_.
   if (position < 1 || position > size_ + 1) {
     throw std::out_of_range("Position is out of range");
   }
+
+  // If position == 1, then it is the first item and we add to the front.
   if (position == 1) {
     InsertNodeFront(value);
     return;
+
+    // If position == size_ + 1, then it is the last item and we add to the
+    // back.
   } else if (position == size_ + 1) {
     InsertNode(value);
     return;
   }
+
+  // Create a Node object new_node.
   Node* new_node = new Node(value);
+
+  // Declare a pointer previous pointing to head_.
   Node* previous = head_;
+
+  // Loop through the list to find the previous node (position - 1).
   for (int i = 0; i < position - 2; i++) {
     previous = previous->next;
   }
 
+  // Assign new node's next pointer to the previous node's next pointer.
   new_node->next = previous->next;
+
+  // Reassign previous node's next pointer to the new node.
   previous->next = new_node;
+
+  // Increment size in the end.
   size_++;
 }
 
 // @return: Returns the current number of nodes in the list.
 int LinkedList::GetSize() const {
-  // Return the appropriate member variable.
+  // Return the amount of nodes in the list.
   return size_;
 }
 
 // @param: Takes in a const reference to a second LinkedList.
 // @return: Returns a dynamically allocated pointer to the new merged list.
 LinkedList* LinkedList::MergeIntertwine(const LinkedList& second_list) const {
-  // Create a new LinkedList on the heap.
-  // Populate it by alternating nodes from THIS list and the second_list.
-  // If one list is longer, append the remaining nodes from the longer list.
-  // Do not alter the original lists. Return the new merged list.
+  // Create a new linked list.
   LinkedList* new_list = new LinkedList();
 
+  // Declare a pointer current pointing to head_ and second_list_current
+  // pointing to the second_list' head_.
   Node* current = head_;
   Node* second_list_current = second_list.head_;
 
+  // Insert nodes in a new list while one of the lists has nodes left.
   while (current || second_list_current) {
     if (current) {
       new_list->InsertNode(current->value);
@@ -229,16 +260,20 @@ LinkedList* LinkedList::MergeIntertwine(const LinkedList& second_list) const {
       second_list_current = second_list_current->next;
     }
   }
+
+  // Return the result list in the end.
   return new_list;
 }
 
 // The destructor automatically runs when the LinkedList object is
 // destroyed.
 LinkedList::~LinkedList() {
-  // Free all dynamically allocated memory used by the list's nodes.
-  // Ensure no orphaned memory is left behind upon object destruction.
+  // Declare a pointer current pointing to head_.
   Node* current = head_;
+
+  // Loop through the list with deleting nodes and decrementing size.
   while (current) {
+    // Declare a pointer next_node pointing to the current->next.
     Node* next_node = current->next;
     delete current;
     current = next_node;
