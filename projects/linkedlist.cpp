@@ -161,8 +161,8 @@ LinkedList* LinkedList::ReverseList() {
   // Create a LinkedList object reverse_list.
   LinkedList* reverse_list = new LinkedList();
 
-  // Declare pointers current, previous and next pointing to head_, nullptr and
-  // nullptr.
+  // Create 3 pointers - current, previous and next pointing to head_, nullptr
+  // and nullptr.
   Node* current = head_;
   Node* previous = nullptr;
   Node* next = nullptr;
@@ -279,4 +279,6 @@ LinkedList::~LinkedList() {
     current = next_node;
     size_--;
   }
+
+  // size_ = 0;  // We can use this but I will keep my original idea.
 }
