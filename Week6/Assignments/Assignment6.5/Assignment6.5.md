@@ -25,6 +25,10 @@ A junior engineer already whipped up a recursive version straight from the formu
 
 Consider: What happens to the number of calls as n grows if the recursive definition is followed literally? Does that growth rate matter at n = 40? At n = 90? Is "it matches the math formula" a good enough reason to ship it?
 
+1. Iterative
+2. The problem of using a recursion in fibonacci is the repeated calculations, as we saw in class with the number 5, and the number of calculations grows with `n`. On the other hand, the iterative way saves the calculations and doesn't need to repeat them. Input size: The iterative way saves previous calculations, so it doesn't really matter what `n` we are looking for. With the recursive way, the larger the number, the more time it will take to calculate it.
+3. The downside of iterative way is a bit more code and worse readability, recursion needed ~4 lines.
+
 
 ## Meeting 2: The Google Drive Storage Team
 
@@ -34,6 +38,9 @@ They've got two competing pull requests open: one recursive, one iterative and c
 
 Consider: How does folder nesting compare to the flat structure in Meeting 1? How deep do real folder structures actually get in practice, and does that change your recommendation compared to the autocomplete scenario?
 
+1. Recursive
+2. The recursion fits better for this task because the folder structure will be a tree and we don't know how many levels there are, so we will use recursion until we reach folders without any other folders inside them. And readability will be better with recursion.
+3. Input size: if the folder structure is too deep then the call stack will be large.
 
 ## Meeting 3: The Google Analytics Team
 
@@ -42,6 +49,10 @@ The Analytics team needs to sum up a full day's worth of ad click events, a plai
 One engineer suggests recursion "for consistency" with the rest of the codebase, since the team just finished the Drive project. Your manager is skeptical and wants a second opinion before the next standup.
 
 Consider: Is there anything self-similar or branching about this problem, or is it pure repetition? What happens to a recursive approach as the list grows: is there a point where it might fail outright, and why? Is "for consistency" a good enough reason on its own?
+
+1. Iterative
+2. Using recursion will be overcomplicating the tasl because we have `a plain list of about 1,000,000 numbers, one after another, no nesting, no branching, just a long flat sequence`. We just need to loop through the amount of numbers and add them to the total. Input size doesn't matter for iterative because it will be O(n), for recursion if we call a function for each number - it's 1 million function calls.
+3. I don't really see any risks using an iterative way.
 
 
 ## Grading
