@@ -21,6 +21,15 @@ int main() {
   std::cout << "Enter the input file name: ";
   std::cin >> input_file_name;
 
+  // Open the file
+  std::ifstream FileReaderObject(input_file_name);
+
+  // Check if it actually opened
+  if (!FileReaderObject.is_open()) {
+    std::cout << "File not found!" << std::endl;
+    return 0;
+  }
+
   // Ask user to input the word to search.
   std::cout << "Enter the word to search for: ";
   std::cin >> word_to_search;
@@ -33,15 +42,8 @@ int main() {
   std::cout << "Enter the output file name: ";
   std::cin >> output_file_name;
 
-  // Open the file and create the output file.
-  std::ifstream FileReaderObject(input_file_name);
+  // Create the output file.
   std::ofstream FileOutputObject(output_file_name);
-
-  // Check if it actually opened
-  if (!FileReaderObject.is_open()) {
-    std::cout << "File not found!" << std::endl;
-    return 0;
-  }
 
   // Iterate by one line in the text.
   while (getline(FileReaderObject, line)) {
