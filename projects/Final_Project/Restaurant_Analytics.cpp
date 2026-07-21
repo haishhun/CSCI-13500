@@ -1,6 +1,11 @@
+#include <fstream>
 #include <iostream>
+#include <sstream>
 #include <stdexcept>
 #include <string>
+#include <vector>
+
+#include "MenuItem.h"
 
 int StringToInteger(const std::string& string_to_convert) {
   int result = 0;
@@ -47,4 +52,55 @@ int StringToInteger(const std::string& string_to_convert) {
     result = -result;
   }
   return result;
+}
+void PopulateAVector(const std::string& file_name,
+                     std::vector<MenuItem>& menu) {
+  std::ifstream FileObject(file_name);
+  // Check if it actually opened
+  if (!FileObject.is_open()) {
+    throw std::runtime_error("File cannot be opened.");
+  }
+
+  std::string line = {};
+  while (getline(FileObject, line)) {
+    std::istringstream iss(line);
+    std::string new_name, new_category, new_price, new_stock;
+
+    getline(iss, new_name, ',');
+    getline(iss, new_category, ',');
+    getline(iss, new_price, ',');
+    getline(iss, new_stock, ',');
+
+    MenuItem new_item;
+    new_item.SetName(new_name);
+    new_item.SetCategory(new_category);
+    new_item.SetPrice(std::stod(new_price));
+    new_item.SetStock(StringToInteger(new_stock));
+
+    menu.push_back(new_item);
+  }
+}
+
+void DisplayInventory(const std::vector<MenuItem>& menu) {
+  for (const MenuItem& item : menu) {
+    item.PrintItem();
+  }
+}
+
+void DisplayItemsFilteredByCategory(const std::vector<MenuItem>& menu,
+                                    const std::string& filter_category) {
+  for (const MenuItem& item : menu) {
+    if (item.GetCategory() == filter_category) {
+      item.PrintItem();
+    }
+  }
+}
+
+void DisplayItemsFilteredByPrice(const std::vector<MenuItem>& menu,
+                                 double min_price, double max_price) {
+  for (const MenuItem& item : menu) {
+    if (item.GetPrice() >= min_price && item.GetPrice() <= max_price) {
+      item.PrintItem();
+    }
+  }
 }
