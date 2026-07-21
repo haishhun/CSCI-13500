@@ -5,19 +5,19 @@ class MenuItem {
   MenuItem();
   ~MenuItem();
 
-  std::string GetName();
+  std::string GetName() const;
   void SetName(std::string new_name);
 
-  std::string GetCategory();
+  std::string GetCategory() const;
   void SetCategory(std::string new_category);
 
-  double GetPrice();
+  double GetPrice() const;
   void SetPrice(double new_price);
 
-  int GetStock();
+  int GetStock() const;
   void SetStock(int new_stock);
 
-  void PrintItem();
+  void PrintItem() const;
 
  private:
   std::string name = "";
