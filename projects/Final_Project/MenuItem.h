@@ -1,3 +1,6 @@
+#ifndef MENUITEM_H
+#define MENUITEM_H
+
 #include <string>
 
 class MenuItem {
@@ -25,3 +28,5 @@ class MenuItem {
   double price = 0.0;
   int stock = 0;
 };
+
+#endif
