@@ -1,4 +1,6 @@
 #include <iostream>
+#include <stdexcept>
+#include <string>
 #include <vector>
 
 #include "MenuItem.h"
@@ -7,14 +9,36 @@
 int main() {
   std::vector<MenuItem> menu;
 
+  std::cout << "----------------------------------------" << std::endl;
+  std::cout << "                MenuItem                " << std::endl;
+  std::cout << "----------------------------------------" << std::endl;
+  std::cout << "Creating Test Item 1 ..." << std::endl;
+  MenuItem test_item_1("Test Item 1", "Main", 12.50, 2);
+  test_item_1.PrintItem();
+  std::cout << "----------------------------------------" << std::endl;
+
+  std::cout << "Creating Test Item 2 ..." << std::endl;
+  MenuItem test_item_2("Test Item 2", "Dessert", 25, 5);
+  test_item_2.PrintItem();
+  std::cout << "----------------------------------------" << std::endl;
+
+  std::cout << "Creating Test Item 3 ..." << std::endl;
+  MenuItem test_item_3("Test Item 3", "Main", 50, 10);
+  test_item_3.PrintItem();
+
+  std::cout << "\n----------------------------------------" << std::endl;
+  std::cout << "             PopulateAVector            " << std::endl;
+  std::cout << "----------------------------------------" << std::endl;
   try {
     restaurant_analytics::PopulateAVector("inventory.csv", menu);
+    std::cout << "Populated a vector with items from inventory.csv"
+              << std::endl;
   } catch (...) {
     std::cout << "Error loading file: " << std::endl;
     return 0;
   }
 
-  std::cout << "----------------------------------------" << std::endl;
+  std::cout << "\n----------------------------------------" << std::endl;
   std::cout << "            DisplayInventory            " << std::endl;
   std::cout << "----------------------------------------" << std::endl;
   std::cout << "Displaying all inventory ..." << std::endl;
@@ -180,6 +204,19 @@ int main() {
   try {
     restaurant_analytics::CreateLowStockCSV(menu, "low_stock_30.csv", 30);
     std::cout << "low_stock_30.csv created." << std::endl;
+  } catch (...) {
+    std::cout << "Error writing file: " << std::endl;
+  }
+
+  std::cout << "\n----------------------------------------" << std::endl;
+  std::cout << "                CreateCSV               " << std::endl;
+  std::cout << "----------------------------------------" << std::endl;
+
+  std::cout << "Creating an updated file with all modifications ..."
+            << std::endl;
+  try {
+    restaurant_analytics::CreateCSV(menu);
+    std::cout << "Update menu saved to output.txt" << std::endl;
   } catch (...) {
     std::cout << "Error writing file: " << std::endl;
   }

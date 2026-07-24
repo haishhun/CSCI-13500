@@ -9,6 +9,8 @@
 
 #include "MenuItem.h"
 namespace restaurant_analytics {
+
+/*Converts a string to an integer.*/
 int StringToInteger(const std::string& string_to_convert) {
   int result = 0;
   bool is_negative = false;
@@ -53,16 +55,19 @@ int StringToInteger(const std::string& string_to_convert) {
   if (is_negative) {
     result = -result;
   }
+
+  // Return the result.
   return result;
 }
 
+/*Populates the vector from the file.*/
 void PopulateAVector(const std::string& file_name,
                      std::vector<MenuItem>& menu) {
   // Open the file
-  std::ifstream FileObject(file_name);
+  std::ifstream file_object(file_name);
 
   // Check if it is actually opened
-  if (!FileObject.is_open()) {
+  if (!file_object.is_open()) {
     throw std::runtime_error("File cannot be opened.");
   }
 
@@ -71,7 +76,10 @@ void PopulateAVector(const std::string& file_name,
 
   // Iterate through each line and create a new object MenuItem with data from
   // the line.
-  while (getline(FileObject, line)) {
+  while (getline(file_object, line)) {
+    if (line.empty()) {
+      continue;
+    }
     std::istringstream iss(line);
     std::string new_name, new_category, new_price, new_stock;
 
@@ -91,13 +99,14 @@ void PopulateAVector(const std::string& file_name,
   }
 }
 
+/* Prints all items from the vector.*/
 void DisplayInventory(const std::vector<MenuItem>& menu) {
   // Iterate through vector and print all items.
   for (const MenuItem& item : menu) {
     item.PrintItem();
   }
 }
-
+/* Prints all items from specific category from the vector.*/
 void DisplayItemsFilteredByCategory(const std::vector<MenuItem>& menu,
                                     const std::string& filter_category) {
   // Iterate through the vector and print items that are in filter_category.
@@ -108,6 +117,7 @@ void DisplayItemsFilteredByCategory(const std::vector<MenuItem>& menu,
   }
 }
 
+/* Prints all items that fit price range from the vector.*/
 void DisplayItemsFilteredByPrice(const std::vector<MenuItem>& menu,
                                  double min_price, double max_price) {
   // Iterate through the vector and print items that are in target price range.
@@ -118,6 +128,7 @@ void DisplayItemsFilteredByPrice(const std::vector<MenuItem>& menu,
   }
 }
 
+/* Returns the address of the item.*/
 MenuItem* ItemAddressByName(std::vector<MenuItem>& menu,
                             const std::string& item_name) {
   // Iterate through the vector and return the address of the item that has the
@@ -132,6 +143,7 @@ MenuItem* ItemAddressByName(std::vector<MenuItem>& menu,
   return nullptr;
 }
 
+/* Setting discount price for all items from a specific category.*/
 void SalePriceModification(std::vector<MenuItem>& menu,
                            const std::string& filter_category,
                            double discount) {
@@ -145,6 +157,7 @@ void SalePriceModification(std::vector<MenuItem>& menu,
   }
 }
 
+/* Returns a vector of k items with low units in stock.*/
 std::vector<MenuItem> LowestStockQuantities(std::vector<MenuItem> menu, int k) {
   int menu_size = menu.size();
 
@@ -156,7 +169,7 @@ std::vector<MenuItem> LowestStockQuantities(std::vector<MenuItem> menu, int k) {
     k = 0;
   }
 
-  // Bubble sort in descending order.
+  // Selection sort in ascending order.
   for (int i = 0; i < k; i++) {
     int min_index = i;
     for (int j = i + 1; j < menu_size; j++) {
@@ -177,6 +190,7 @@ std::vector<MenuItem> LowestStockQuantities(std::vector<MenuItem> menu, int k) {
   return menu;
 }
 
+/* Returns a vector of k items with highest prices. */
 std::vector<MenuItem> HighestPriceItems(std::vector<MenuItem> menu, int k) {
   int menu_size = menu.size();
 
@@ -187,7 +201,7 @@ std::vector<MenuItem> HighestPriceItems(std::vector<MenuItem> menu, int k) {
   if (k < 0) {
     k = 0;
   }
-  // Bubble sort in ascending order.
+  // Selection sort in descending order.
   for (int i = 0; i < k; i++) {
     int max_index = i;
     for (int j = i + 1; j < menu_size; j++) {
@@ -209,19 +223,48 @@ std::vector<MenuItem> HighestPriceItems(std::vector<MenuItem> menu, int k) {
   return menu;
 }
 
+/* Writes a new CSV file. */
+void CreateCSV(const std::vector<MenuItem>& menu) {
+  // Create an output file object.
+  std::ofstream file_object("output.txt");
+
+  // Validate if the object was created.
+  if (!file_object.is_open()) {
+    throw std::runtime_error("File cannot be opened.");
+  }
+
+  // Iterate through the input vector and write each item in output file.
+  for (const MenuItem& item : menu) {
+    file_object << item.GetName() << ',' << item.GetCategory() << ','
+                << item.GetPrice() << ',' << item.GetStock() << std::endl;
+  }
+
+  // Close the file.
+  file_object.close();
+}
+
+/* Writes a new CSV file with all items that has lower units than
+ * stock_threshold. */
 void CreateLowStockCSV(const std::vector<MenuItem>& menu,
                        const std::string& output_file_name,
                        int stock_threshold) {
-  std::ofstream FileObject(output_file_name);
-  if (!FileObject.is_open()) {
+  // Create an output file object.
+  std::ofstream file_object(output_file_name);
+
+  // Validate if the object was created.
+  if (!file_object.is_open()) {
     throw std::runtime_error("File cannot be opened.");
   }
+
+  // Iterate through the input vector and write each item that has lower units
+  // than stock_treshhold in output file.
   for (const MenuItem& item : menu) {
     if (item.GetStock() < stock_threshold) {
-      FileObject << item.GetName() << ',' << item.GetCategory() << ','
-                 << item.GetPrice() << ',' << item.GetStock() << std::endl;
+      file_object << item.GetName() << ',' << item.GetCategory() << ','
+                  << item.GetPrice() << ',' << item.GetStock() << std::endl;
     }
   }
-  FileObject.close();
+  // Close the file.
+  file_object.close();
 }
 }  // namespace restaurant_analytics
