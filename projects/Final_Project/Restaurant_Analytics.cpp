@@ -10,7 +10,7 @@
 #include "MenuItem.h"
 namespace restaurant_analytics {
 
-/*Converts a string to an integer.*/
+/* Converts a string to an integer.*/
 int StringToInteger(const std::string& string_to_convert) {
   int result = 0;
   bool is_negative = false;
@@ -60,7 +60,7 @@ int StringToInteger(const std::string& string_to_convert) {
   return result;
 }
 
-/*Populates the vector from the file.*/
+/* Populates the vector from the file.*/
 void PopulateAVector(const std::string& file_name,
                      std::vector<MenuItem>& menu) {
   // Open the file
@@ -143,7 +143,7 @@ MenuItem* ItemAddressByName(std::vector<MenuItem>& menu,
   return nullptr;
 }
 
-/* Setting discount price for all items from a specific category.*/
+/* Sets discount price for all items from a specific category.*/
 void SalePriceModification(std::vector<MenuItem>& menu,
                            const std::string& filter_category,
                            double discount) {
@@ -256,7 +256,7 @@ void CreateLowStockCSV(const std::vector<MenuItem>& menu,
     throw std::runtime_error("File cannot be opened.");
   }
 
-  // Iterate through the input vector and write each item that has lower units
+  // Iterate through the input vector and write each item that have lower units
   // than stock_treshhold in output file.
   for (const MenuItem& item : menu) {
     if (item.GetStock() < stock_threshold) {

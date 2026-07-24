@@ -29,7 +29,7 @@ void DisplayItemsFilteredByPrice(const std::vector<MenuItem>& menu,
 MenuItem* ItemAddressByName(std::vector<MenuItem>& menu,
                             const std::string& item_name);
 
-/* Setting discount price for all items from a specific category.*/
+/* Sets discount price for all items from a specific category.*/
 void SalePriceModification(std::vector<MenuItem>& menu,
                            const std::string& filter_category, double discount);
 
@@ -42,7 +42,7 @@ std::vector<MenuItem> HighestPriceItems(std::vector<MenuItem> menu, int k);
 /* Writes a new CSV file. */
 void CreateCSV(const std::vector<MenuItem>& menu);
 
-/* Writes a new CSV file with all items that has lower units than
+/* Writes a new CSV file with all items that have lower units
  * stock_threshold. */
 void CreateLowStockCSV(const std::vector<MenuItem>& menu,
                        const std::string& output_file_name,
